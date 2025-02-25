@@ -51,6 +51,22 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+    // words length based
+    app.get("/words", async (req, res) => {
+      const result = await blogsCollection
+        .aggregate([
+          {
+            $addFields: {
+              descriptionLength: { $strLenCP: "$description" }, // Compute string length
+            },
+          },
+          {
+            $sort: { descriptionLength: -1 }, // Sort by the computed length
+          },
+        ])
+        .toArray();
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     //   await client.close();
