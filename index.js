@@ -87,6 +87,13 @@ async function run() {
 
       res.send(result);
     });
+    // specific blog
+    app.get("/blog/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await blogsCollection.findOne(query);
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     //   await client.close();
