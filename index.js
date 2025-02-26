@@ -156,6 +156,23 @@ async function run() {
       const result = await wishlistCollection.insertOne(newWishlist);
       res.send(result);
     });
+
+    // Updating
+    // blogs
+    app.put("/update/blog/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updatedBlog = {
+        $set: req.body,
+      };
+      const result = await blogsCollection.updateOne(
+        filter,
+        updatedBlog,
+        options
+      );
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     //   await client.close();
