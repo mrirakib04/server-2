@@ -123,6 +123,13 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+    // specific wishlist
+    app.get("/wishlist/user", async (req, res) => {
+      const query = req.query.query;
+      const cursor = wishlistCollection.find({ wishlistFor: query });
+      const result = await cursor.toArray();
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     //   await client.close();
