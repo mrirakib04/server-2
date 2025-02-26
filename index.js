@@ -173,6 +173,22 @@ async function run() {
       );
       res.send(result);
     });
+
+    // Deleting
+    // blogs
+    app.delete("/delete/blog", async (req, res) => {
+      const reqQuery = req.query.query;
+      const query = { _id: new ObjectId(reqQuery) };
+      const result = await blogsCollection.deleteOne(query);
+      res.send(result);
+    });
+    // wishlist
+    app.delete("/wishlist/blog", async (req, res) => {
+      const reqQuery = req.query.query;
+      const query = { _id: new ObjectId(reqQuery) };
+      const result = await wishlistCollection.deleteOne(query);
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     //   await client.close();
