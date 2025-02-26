@@ -150,6 +150,12 @@ async function run() {
       const result = await commentsCollection.insertOne(newComment);
       res.send(result);
     });
+    // wishlist
+    app.post("/wishlist", async (req, res) => {
+      const newWishlist = req.body;
+      const result = await wishlistCollection.insertOne(newWishlist);
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     //   await client.close();
