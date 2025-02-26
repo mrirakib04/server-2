@@ -101,6 +101,15 @@ async function run() {
       const result = await blogsCollection.findOne(query);
       res.send(result);
     });
+    // search blog
+    app.get("/blogs/search", async (req, res) => {
+      const query = req.query.query;
+      const cursor = blogsCollection.find({
+        $text: { $search: query },
+      });
+      const result = await cursor.toArray();
+      res.status(200).send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     //   await client.close();
