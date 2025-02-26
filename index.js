@@ -136,6 +136,14 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+
+    // Posting
+    // blogs
+    app.post("/blogs", async (req, res) => {
+      const newBlog = req.body;
+      const result = await blogsCollection.insertOne(newBlog);
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     //   await client.close();
