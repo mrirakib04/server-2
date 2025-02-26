@@ -130,6 +130,12 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+    // latest blogs
+    app.get("/latest", async (req, res) => {
+      const cursor = blogsCollection.find().sort({ publishDate: -1 }).limit(6);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     //   await client.close();
