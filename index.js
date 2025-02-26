@@ -144,6 +144,12 @@ async function run() {
       const result = await blogsCollection.insertOne(newBlog);
       res.send(result);
     });
+    // comments
+    app.post("/comments", async (req, res) => {
+      const newComment = req.body;
+      const result = await commentsCollection.insertOne(newComment);
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     //   await client.close();
