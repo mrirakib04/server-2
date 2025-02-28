@@ -12,7 +12,10 @@ const app = express();
 // middleware
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [
+      "http://localhost:5173",
+      "https://mrirakib-web-practice-8.netlify.app",
+    ],
     credentials: true,
   })
 );
@@ -147,8 +150,9 @@ async function run() {
     // search blog
     app.get("/blogs/search", async (req, res) => {
       const query = req.query.query;
+      const regex = new RegExp(query, "i");
       const cursor = blogsCollection.find({
-        $text: { $search: query },
+        $or: [{ blogName: regex }, { description: regex }],
       });
       const result = await cursor.toArray();
       res.status(200).send(result);
