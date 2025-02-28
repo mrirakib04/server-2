@@ -75,6 +75,18 @@ async function run() {
         .send({ success: true });
     });
 
+    // clear jwt
+    app.post("/logout", (req, res) => {
+      res
+        .clearCookie("token", {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+        })
+        .status(200)
+        .send({ success: true, message: "Logged out successfully." });
+    });
+
     // Reading
     // all blogs
     app.get("/blogs", async (req, res) => {
